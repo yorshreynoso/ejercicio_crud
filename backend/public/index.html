@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Usuarios</title>
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- import "bootswatch/dist/cosmo/bootstrap.min.css"; -->
+    <!-- animate CSS  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand">nuevos usuarios</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form id="user-form" class="card card-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="nickname" placeholder="Nickname" autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="nombre" class="form-control" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="apellido" class="form-control" placeholder="Apellido">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" class="form-control" placeholder="Correo">
+                    </div>
+                    <div class="card card-body">
+                        <select class="card card-body" id="role">
+                            <option value="1">Admin</option>
+                            <option value="2">Administrativo</option>
+                            <option value="3">Operador</option>
+                          </select>
+                    </div>
+                        <button class="btn btn-primary">
+                            Guardar usuario
+                        </button>
+                </form>
+            </div>
+            <div class="col-md-8" id="books-cards">
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript" src="bundle.js"></script></body>
+</html>

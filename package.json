@@ -1,0 +1,36 @@
+{
+  "name": "ejercicio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./backend/index.js --ignore frontend",
+    "server:dev": "webpack-dev-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-myconnection": "^1.0.4",
+    "express-mysql-session": "^2.1.2",
+    "joi": "^14.3.1",
+    "morgan": "^1.9.1",
+    "mysql": "^2.18.0",
+    "path": "^0.12.7",
+    "promisify": "0.0.3",
+    "timeago.js": "^4.0.2",
+    "util": "^0.12.1"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "css-loader": "^3.4.2",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "nodemon": "^2.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  }
+}
