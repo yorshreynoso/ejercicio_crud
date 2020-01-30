@@ -130,7 +130,7 @@ controller.update = ( async(req, res) => {
         const resDB = await pool.query('UPDATE usuarios set ? WHERE Nickname = ?', [{Nombre, Apellido, Password, Role, Correo }, Nickname ]);
         if(resDB.affectedRows == 1 ) {
             res.json({
-                message: 'Usuario creado correctamente',
+                message: 'Usuario actualizado correctamente',
                 colorMessage: 'success',
                 secondsToRemove: 3000
             });
