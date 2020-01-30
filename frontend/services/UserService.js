@@ -53,10 +53,23 @@ class UserService {
         const response = await fetch(`${this.URI}/nickname/${nickname}`);
         //console.log(await response.json());
         return await response.json();
-
     }
 
-    editUser() {
+    async getUser(userId) {
+        const response = await fetch(`${this.URI}/user/${userId}`);
+        //console.log(await response.json());
+        return response.json();
+    }
+
+    async updateUser(data) {
+        // console.log(data);
+        const response = await fetch(`${this.URI}/update/${data.Nickname}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        //console.log(await response.json());
+        return await response.json();
 
     }
 
@@ -64,3 +77,11 @@ class UserService {
 
 module.exports = UserService;
 //export default UserService;
+
+// return await fetch(this.URI, {     //url 'http://localhost:3000/api/users'
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body:JSON.stringify(user),
+//         })
+//         .catch(error => console.error('Error:', error))
+//         .then(res => res.json());

@@ -1,7 +1,5 @@
 const pool = require('../database');
-//const validation = require('../validation');
 const Joi = require('joi');
-
 
 const controller = {};
 
@@ -15,8 +13,8 @@ controller.list = ( async(req, res) => {
 controller.save = ( async(req, res) => {
     console.log("entro para almacenar usuario");
     const { Nickname, Nombre, Apellido, Password, Role, Correo} = req.body; //hacemos destructuring
-    console.log("password ->",Password);
-    console.log("role ->",Role);
+    // console.log("password ->",Password);
+    // console.log("role ->",Role);
 
     const payload = req.body;
     //validation
@@ -68,14 +66,7 @@ controller.save = ( async(req, res) => {
                 });
              }
          }
-
-
-
-
     }
-
-
-
 
     // res.redirect('/');
 });
@@ -94,12 +85,63 @@ controller.edit = (async(req, res) => {
     res.json(userEdit[0]);
 });
 
+controller.getUser = (async(req, res) => {
+    console.log('get user information');
+    const {id} = req.params;
+    const user = await pool.query('SELECT * FROM usuarios WHERE Id = ?', [id]);
+    //console.log(user[0]);
+    return res.json(user[0]);
+
+});
+
 controller.update = ( async(req, res) => {
     // console.log(req.params);
-    const { id } = req.params;
-    const { nombre, apellido, password, rol, correo } = req.body;
-    const qie = await pool.query('UPDATE usuarios set ? WHERE Id = ?', [{nombre, apellido, password, rol, correo}, id ]);
-    res.json({message: 'usuario editado correctamente'});
+    const { Nickname } = req.params;
+    const { Nombre, Apellido, Password, Role, Correo } = req.body;
+    console.log(req.params);
+    const payload = {
+        Nickname,
+        Nombre,
+        Apellido,
+        Password,
+        Role,
+        Correo
+    };
+    //validation
+    const schema = Joi.object().keys({
+        Nickname: Joi.string().trim().regex(/^[a-zA-Z_][a-zA-Z0-9_]*/).required(),
+        Nombre: Joi.string().trim().regex(/[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/).required(),
+        Apellido: Joi.string().trim().regex(/[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/).required(),
+        Password: Joi.required(),
+        Role: Joi.number().min(1).max(3).required(),
+        Correo: Joi.string().email().required()
+    });
+
+    const { value, error} = Joi.validate(payload, schema);
+    if(error) {
+        const detail = error.details[0].path;
+        // console.log(error.details[0]);
+        res.json({
+            message: `Favor de verificar el campo: " ${detail} "`,
+            colorMessage: 'danger',
+            secondsToRemove: 3000
+        });
+    } else {
+        const resDB = await pool.query('UPDATE usuarios set ? WHERE Nickname = ?', [{Nombre, Apellido, Password, Role, Correo }, Nickname ]);
+        if(resDB.affectedRows == 1 ) {
+            res.json({
+                message: 'Usuario creado correctamente',
+                colorMessage: 'success',
+                secondsToRemove: 3000
+            });
+        } else {
+            res.json({
+                message: 'Ocurrio un error al insertar en la base de datos',
+                colorMessage: 'danger',
+                secondsToRemove: 3000
+            });
+        }
+    }
 });
 
 controller.search = (async(req, res) => {
